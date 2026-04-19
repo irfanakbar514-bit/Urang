@@ -729,41 +729,62 @@
             </div>
         </div>
     </div>
-  <script>
-    // 1. Fungsi untuk paksa buka undangan
-    function forceOpen() {
+    <script>
+    // Fungsi untuk mengaktifkan semua fitur yang macet
+    function aktifkanUndangan() {
+        // 1. Hilangkan layar loading & Welcome
         const loading = document.getElementById('loading');
-        const welcome = document.getElementById('welcome');
-        const root = document.getElementById('root');
+        if (loading) loading.remove();
         
-        if (loading) loading.style.display = 'none';
-        if (welcome) welcome.style.opacity = '1'; // Munculkan halaman depan (The Wedding Of)
+        const welcome = document.getElementById('welcome');
+        if (welcome) welcome.style.display = 'none';
+
+        // 2. Munculkan konten utama
+        const root = document.getElementById('root');
         if (root) {
             root.classList.remove('opacity-0');
             root.style.opacity = '1';
         }
+
+        // 3. Paksa Animasi (AOS) Jalan
+        // Kita cek dulu apakah library AOS sudah terload
+        if (window.AOS) {
+            window.AOS.init({
+                duration: 1000,
+                once: true
+            });
+        }
+
+        // 4. Paksa Musik Jalan
+        // Script asli biasanya naruh audio di window.undangan.audio
+        const audioTag = document.querySelector('audio');
+        if (audioTag) {
+            audioTag.play().catch(err => console.log("Musik butuh klik manual"));
+        }
     }
 
-    // 2. Jalankan fungsi setelah 2 detik kalau script asli macet
+    // Tunggu sampai halaman benar-benar siap
     window.addEventListener('load', () => {
+        // Munculkan halaman welcome (The Wedding Of) setelah loading internal beres
         setTimeout(() => {
-            forceOpen();
-            console.log("Script dipaksa jalan!");
-        }, 2000);
+            const welcome = document.getElementById('welcome');
+            if (welcome) welcome.style.opacity = '1';
+            
+            const loading = document.getElementById('loading');
+            if (loading) loading.style.opacity = '0';
+            setTimeout(() => { if(loading) loading.remove(); }, 500);
+        }, 1500);
     });
 
-    // 3. Tambahan biar tombol bisa diklik (bypass event listener yang macet)
+    // Deteksi klik pada tombol "Open Invitation"
     document.addEventListener('click', function(e) {
-        // Jika yang diklik adalah tombol "Open Invitation"
-        if (e.target && e.target.innerText.includes('Open Invitation')) {
-            const welcome = document.getElementById('welcome');
-            if (welcome) welcome.style.display = 'none';
-            // Nyalakan musik manual jika ada
-            const audio = document.querySelector('audio');
-            if (audio) audio.play();
+        // Cari apakah yang diklik adalah tombol buka (atau icon di dalamnya)
+        if (e.target.closest('button') && e.target.closest('button').innerHTML.includes('Open')) {
+            aktifkanUndangan();
         }
     });
 </script>
+
   
 </body>
 
