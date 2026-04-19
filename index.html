@@ -790,6 +790,50 @@
         }
     });
 </script>
+    <script>
+    // Fungsi ini bakal jalanin musik, animasi, dan buka tampilan sekaligus
+    function jalankanSemua() {
+        // Nyalain musik
+        const audio = document.getElementById('musik-undangan');
+        if (audio) audio.play();
+
+        // Nyalain animasi scroll (AOS)
+        if (typeof AOS !== 'undefined') {
+            AOS.init({ duration: 1000, once: true });
+        }
+
+        // Buang halaman depan (The Wedding Of) & munculin isi
+        document.getElementById('welcome').style.display = 'none';
+        const root = document.getElementById('root');
+        if (root) {
+            root.classList.remove('opacity-0');
+            root.style.opacity = '1';
+        }
+        
+        // Refresh posisi animasi biar gak nyangkut
+        setTimeout(() => { AOS.refresh(); }, 500);
+    }
+
+    // Hilangkan loading hitam secara otomatis dalam 1 detik
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            const loading = document.getElementById('loading');
+            if (loading) {
+                loading.style.opacity = '0';
+                setTimeout(() => { loading.remove(); }, 500);
+            }
+        }, 1000);
+    });
+
+    // Deteksi kalau tombol "Open Invitation" atau "Buka Undangan" diklik
+    document.addEventListener('click', function(e) {
+        const tombol = e.target.closest('button');
+        if (tombol && (tombol.innerText.includes('Open') || tombol.innerText.includes('Buka'))) {
+            jalankanSemua();
+        }
+    });
+</script>
+
 
   
 </body>
