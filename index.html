@@ -66,6 +66,7 @@
     <script src="./js/guest.js" type="module"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 
 
 </head>
@@ -791,18 +792,35 @@
     });
 </script>
     <script>
-    // Fungsi ini bakal jalanin musik, animasi, dan buka tampilan sekaligus
+    <script>
+    // 1. Fungsi rahasia buat manggil bunga jatuh
+    function efekBungaJatuh() {
+        const script = document.createElement('script');
+        script.src = "https://cdn.jsdelivr.net/gh/mshatp/sakura-falling-js/sakura.min.js";
+        script.onload = () => { if(window.Sakura) new Sakura('body'); };
+        document.head.appendChild(script);
+    }
+
+    // 2. Fungsi utama pas tombol diklik
     function jalankanSemua() {
         // Nyalain musik
         const audio = document.getElementById('musik-undangan');
         if (audio) audio.play();
+
+        // EFEK MELEDAK (Confetti)
+        if (typeof confetti !== 'undefined') {
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, zIndex: 9999 });
+        }
+
+        // EFEK BUNGA JATUH
+        efekBungaJatuh();
 
         // Nyalain animasi scroll (AOS)
         if (typeof AOS !== 'undefined') {
             AOS.init({ duration: 1000, once: true });
         }
 
-        // Buang halaman depan (The Wedding Of) & munculin isi
+        // Buka undangan
         document.getElementById('welcome').style.display = 'none';
         const root = document.getElementById('root');
         if (root) {
@@ -810,11 +828,10 @@
             root.style.opacity = '1';
         }
         
-        // Refresh posisi animasi biar gak nyangkut
-        setTimeout(() => { AOS.refresh(); }, 500);
+        setTimeout(() => { if(window.AOS) AOS.refresh(); }, 500);
     }
 
-    // Hilangkan loading hitam secara otomatis dalam 1 detik
+    // 3. Script buat ngatur loading awal (Tetap Sama)
     window.addEventListener('load', () => {
         setTimeout(() => {
             const loading = document.getElementById('loading');
@@ -822,10 +839,12 @@
                 loading.style.opacity = '0';
                 setTimeout(() => { loading.remove(); }, 500);
             }
+            const welcome = document.getElementById('welcome');
+            if (welcome) welcome.style.opacity = '1';
         }, 1000);
     });
 
-    // Deteksi kalau tombol "Open Invitation" atau "Buka Undangan" diklik
+    // 4. Deteksi klik tombol buka
     document.addEventListener('click', function(e) {
         const tombol = e.target.closest('button');
         if (tombol && (tombol.innerText.includes('Open') || tombol.innerText.includes('Buka'))) {
