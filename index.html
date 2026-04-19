@@ -858,19 +858,18 @@
             jalankanSemua();
         }
     });
-        // Fungsi manual buat buka Kisah Cinta kalau script asli macet
-function bukaCerita(btn) {
-    const parent = btn.parentNode;
-    if (parent) {
-        parent.style.display = 'none'; // Ngilangin overlay tombol
-        // Cari kontainer story di bawahnya dan munculkan
-        const storyContainer = parent.nextElementSibling;
-        if (storyContainer) {
-            storyContainer.classList.remove('overflow-y-scroll');
-            storyContainer.style.height = 'auto';
-        }
+        
+        // Biar tombol Kisah Cinta bisa diklik
+function bukaCerita(btnParent) {
+    btnParent.style.display = 'none';
+    const storyBox = btnParent.nextElementSibling;
+    if (storyBox) {
+        storyBox.classList.remove('overflow-y-scroll');
+        storyBox.style.height = 'auto';
+        storyBox.style.overflow = 'visible';
     }
 }
+
 
 </script>
 
