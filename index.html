@@ -729,6 +729,42 @@
             </div>
         </div>
     </div>
+  <script>
+    // 1. Fungsi untuk paksa buka undangan
+    function forceOpen() {
+        const loading = document.getElementById('loading');
+        const welcome = document.getElementById('welcome');
+        const root = document.getElementById('root');
+        
+        if (loading) loading.style.display = 'none';
+        if (welcome) welcome.style.opacity = '1'; // Munculkan halaman depan (The Wedding Of)
+        if (root) {
+            root.classList.remove('opacity-0');
+            root.style.opacity = '1';
+        }
+    }
+
+    // 2. Jalankan fungsi setelah 2 detik kalau script asli macet
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            forceOpen();
+            console.log("Script dipaksa jalan!");
+        }, 2000);
+    });
+
+    // 3. Tambahan biar tombol bisa diklik (bypass event listener yang macet)
+    document.addEventListener('click', function(e) {
+        // Jika yang diklik adalah tombol "Open Invitation"
+        if (e.target && e.target.innerText.includes('Open Invitation')) {
+            const welcome = document.getElementById('welcome');
+            if (welcome) welcome.style.display = 'none';
+            // Nyalakan musik manual jika ada
+            const audio = document.querySelector('audio');
+            if (audio) audio.play();
+        }
+    });
+</script>
+  
 </body>
 
 </html>
