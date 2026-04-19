@@ -2,6 +2,9 @@
 <html lang="id" data-bs-theme="auto">
 
 <head>
+    <link href="https://cdn.jsdelivr.net/gh/mshatp/sakura-falling-js/sakura.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/gh/mshatp/sakura-falling-js/sakura.min.js"></script>
+
     <!-- Common Tag -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -859,16 +862,24 @@
         }
     });
         
-        // Biar tombol Kisah Cinta bisa diklik
-function bukaCerita(btnParent) {
+        function bukaCerita(btnParent) {
+    // 1. Paksa hilangkan lapisan blur/overlay dan tombolnya
     btnParent.style.display = 'none';
+    btnParent.style.visibility = 'hidden';
+    btnParent.style.opacity = '0';
+
+    // 2. Cari kotak cerita (storyBox)
     const storyBox = btnParent.nextElementSibling;
     if (storyBox) {
-        storyBox.classList.remove('overflow-y-scroll');
+        // 3. Paksa munculin teks ceritanya
         storyBox.style.height = 'auto';
+        storyBox.style.maxHeight = 'none';
         storyBox.style.overflow = 'visible';
+        storyBox.style.opacity = '1';
+        storyBox.classList.remove('overflow-y-scroll');
     }
 }
+
 
 
 </script>
