@@ -65,7 +65,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha256-5P1JGBOIxI7FBAvT/mb1fCnI5n/NhQKzNUuW7Hq0fMc=" crossorigin="anonymous"></script>
     <script src="./js/guest.js" type="module"></script>
     <style>
-    /* 1. Kunci Loading Screen */
+    /* Bikin loading item biar gak silau putih */
     #loading {
         display: flex !important;
         flex-direction: column !important;
@@ -73,29 +73,22 @@
         align-items: center !important;
         position: fixed !important;
         top: 0; left: 0; width: 100%; height: 100%;
-        background-color: #000000 !important; /* Latar item biar gak glitch putih */
+        background-color: #000000 !important; 
         z-index: 99999 !important;
-        opacity: 1 !important;
-        visibility: visible !important;
     }
 
-    /* 2. Beresin Nama Double */
-    /* Kita sembunyiin semua teks bawaan template di area nama */
+    /* MATIIN NAMA DOUBLE: Hapus tulisan bawaan yang bikin dobel */
     #guest-name h2, #guest-name p {
         display: none !important;
     }
 
-    /* Kita cuma bolehin munculin nama yang kita buat sendiri */
-    .nama-tamu-fix {
+    /* Munculin nama versi kita (Warna Emas) */
+    .fix-nama-satu {
         display: block !important;
-    }
-
-    /* 3. Persiapan Menu Utama */
-    #welcome {
-        display: block !important;
-        opacity: 1 !important;
+        color: white !important;
     }
 </style>
+
 
 
 
@@ -765,48 +758,39 @@
     </div>
 </body>
 <script>
-    // FUNGSI PAKSA BUKA (Tanpa nunggu script lain)
-    function jebolLoading() {
-        console.log("Memulai proses jebol loading...");
-        
-        const loading = document.getElementById('loading');
-        const welcome = document.getElementById('welcome');
-        const root = document.getElementById('root');
-
-        // 1. Ambil nama tamu dari link (?to=Nama)
-        const params = new URLSearchParams(window.location.search);
-        const tamu = params.get('to');
-        if (tamu) {
-            const elNama = document.getElementById('guest-name');
-            if (elNama) elNama.innerText = tamu.replace(/\+/g, ' ');
+    (function() {
+        // AMBIL NAMA & CEGAH DOUBLE
+        const tamu = new URLSearchParams(window.location.search).get('to');
+        const el = document.getElementById('guest-name');
+        if (tamu && el) {
+            const namaBersih = tamu.replace(/\+/g, ' ');
+            el.innerHTML = `
+                <div class="fix-nama-satu">
+                    <p style="margin-bottom: 5px; font-size: 0.9rem;">Kepada Yth. Bapak/Ibu/Saudara/i:</p>
+                    <h2 class="font-esthetic" style="font-size: 2.2rem; color: #d4af37;">${namaBersih}</h2>
+                </div>
+            `;
         }
 
-        // 2. Paksa Loading Ilang (Tunggu 2 detik biar gak glitch)
+        // TUTUP LOADING SETELAH 2 DETIK
         setTimeout(() => {
-            if (loading) {
-                loading.style.setProperty('display', 'none', 'important');
-                loading.style.setProperty('opacity', '0', 'important');
-            }
-            
-            // 3. Paksa Welcome Page Muncul
+            const loading = document.getElementById('loading');
+            const welcome = document.getElementById('welcome');
+            const root = document.getElementById('root');
+
+            if (loading) loading.style.setProperty('display', 'none', 'important');
             if (welcome) {
                 welcome.style.setProperty('display', 'block', 'important');
                 welcome.style.setProperty('opacity', '1', 'important');
                 welcome.style.setProperty('visibility', 'visible', 'important');
             }
-
             if (root) {
                 root.classList.remove('opacity-0');
-                root.style.setProperty('opacity', '1', 'important');
+                root.style.opacity = '1';
             }
-            console.log("Loading berhasil dijebol!");
         }, 2000);
-    }
-
-    // Jalankan fungsi begitu halaman mulai load
-    jebolLoading();
+    })();
 </script>
-
-
-
 </html>
+
+
