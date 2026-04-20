@@ -831,42 +831,134 @@ function kirimPesanWA() {
 
     // Membuka WhatsApp
     const url = `https://api.whatsapp.com/send?phone=${nomorTujuan}&text=${pesan}`;
-    window.open(url, '_blank');
-}
-</script>
-        <script>
-function kirimKeWA() {
-    // Ambil data dari form
-    const nama = document.getElementById('form-name').value;
-    const hadir = document.getElementById('form-presence');
-    const ucapan = document.getElementById('form-comment').value;
-    const statusHadir = hadir.options[hadir.selectedIndex].text;
+    <div class="loading-page bg-white-black" id="loading" style="opacity: 1;">
+        <div class="d-flex justify-content-center align-items-center vh-100 overflow-y-auto">
+            <div class="d-flex flex-column width-loading text-center">
+                <img src="./assets/images/placeholder.webp" data-src="./assets/images/icon-192x192.png" fetchpriority="high" class="img-fluid mb-3 mx-auto object-fit-cover opacity-0" alt="icon" style="width: 3.5rem; height: 3.5rem;">
+                <div class="progress" role="progressbar" style="height: 0.5rem;" aria-label="progress bar">
+                    <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
+                </div>
+                <small class="d-none mt-1 text-theme-auto" id="progress-info" style="font-size: 0.8rem;">Booting application...</small>
+                <noscript>
+                    <small class="mt-1 text-danger">Sorry, this invitation requires javascript to work</small>
+                </noscript>
+            </div>
+        </div>
+        <div class="text-center position-fixed w-100" style="bottom: 8%; left: 0;">
+            <div class="d-flex flex-column">
+                <small class="text-secondary" style="font-size: 0.8rem;">Digital Invitation</small>
+                <small class="text-theme-auto" style="font-size: 1rem; font-weight: bold;">by Irfan Project</small>
+            </div>
+        </div>
+    </div> <div class="modal fade" id="modal-image" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border border-0">
+                <div class="modal-body p-0">
+                    <div class="d-flex position-absolute top-0 end-0">
+                        <a class="btn d-flex justify-content-center align-items-center bg-overlay-auto p-2 m-1 rounded-circle border shadow-sm z-1" role="button" target="_blank" href="./assets/images/placeholder.webp" id="button-modal-click">
+                            <i class="fa-solid fa-arrow-up-right-from-square" style="width: 1em !important;"></i>
+                        </a>
+                        <button class="btn d-flex justify-content-center align-items-center bg-overlay-auto p-2 m-1 rounded-circle border shadow-sm z-1" id="button-modal-download">
+                            <i class="fa-solid fa-download" style="width: 1em !important;"></i>
+                        </button>
+                        <button class="btn d-flex justify-content-center align-items-center bg-overlay-auto p-2 m-1 rounded-circle border shadow-sm z-1" data-bs-dismiss="modal">
+                            <i class="fa-solid fa-circle-xmark" style="width: 1em !important;"></i>
+                        </button>
+                    </div>
+                    <img src="./assets/images/placeholder.webp" class="img-fluid w-100 rounded-4 cursor-pointer" alt="image" id="show-modal-image">
+                </div>
+            </div>
+        </div>
+    </div>
 
-    // Cek kalau kosong
-    if (nama.trim() === "" || ucapan.trim() === "") {
-        alert("Nama dan Ucapan harus diisi ya bro!");
-        return;
+    <script>
+    // 1. FUNGSI BUKA UNDANGAN & MUSIK
+    function jalankanSemua() {
+        // Cari audio dengan cara yang lebih aman
+        const audio = document.querySelector('audio');
+        if (audio) {
+            audio.play().catch(err => console.log("Musik butuh klik user untuk mulai"));
+        }
+
+        if (typeof confetti !== 'undefined') {
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, zIndex: 9999 });
+        }
+
+        const welcome = document.getElementById('welcome');
+        if (welcome) welcome.style.display = 'none';
+        
+        const root = document.getElementById('root');
+        if (root) {
+            root.classList.remove('opacity-0');
+            root.style.opacity = '1';
+        }
     }
 
-    // --- GANTI NOMOR DI BAWAH INI (Pake 62, jangan 08) ---
-    const nomorWA = "628123456789"; 
+    // 2. AUTO-HIDE LOADING SCREEN
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            const loading = document.getElementById('loading');
+            if (loading) {
+                loading.style.opacity = '0';
+                setTimeout(() => { 
+                    loading.remove(); 
+                    const welcome = document.getElementById('welcome');
+                    if (welcome) {
+                        welcome.style.opacity = '1';
+                        welcome.style.visibility = 'visible';
+                    }
+                }, 500);
+            }
+        }, 1000);
+    });
 
-    // Susun pesan
-    const pesan = "Halo Irfan %26 Via!%0A%0A" + 
-                  "Ada ucapan baru dari undangan digital:%0A%0A" +
-                  "*Nama:* " + nama + "%0A" +
-                  "*Kehadiran:* " + statusHadir + "%0A" +
-                  "*Ucapan:* " + ucapan + "%0A%0A" +
-                  "Terima kasih!";
+    // 3. DETEKSI KLIK TOMBOL BUKA
+    document.addEventListener('click', function(e) {
+        const btn = e.target.closest('button');
+        if (btn && (btn.innerText.includes('Open') || btn.innerText.includes('Buka'))) {
+            jalankanSemua();
+        }
+    });
 
-    // Buka WhatsApp
-    window.open("https://api.whatsapp.com/send?phone=" + nomorWA + "&text=" + pesan, "_blank");
-}
-</script>
+    // 4. FUNGSI STORY (BUKA CERITA)
+    function bukaCerita(btnParent) {
+        btnParent.style.opacity = '0';
+        setTimeout(() => {
+            btnParent.style.display = 'none';
+        }, 500);
 
+        const storyBox = btnParent.nextElementSibling;
+        if (storyBox) {
+            storyBox.style.filter = 'none';
+            storyBox.style.webkitFilter = 'none';
+            storyBox.style.height = 'auto';
+            storyBox.style.overflow = 'visible';
+        }
+    }
 
-  
-    
+    // 5. FUNGSI KIRIM WHATSAPP
+    function kirimKeWA() {
+        const nama = document.getElementById('form-name').value;
+        const hadir = document.getElementById('form-presence');
+        const ucapan = document.getElementById('form-comment').value;
+        const statusHadir = hadir.options[hadir.selectedIndex].text;
+
+        if (nama.trim() === "" || ucapan.trim() === "") {
+            alert("Nama dan Ucapan harus diisi ya bro!");
+            return;
+        }
+
+        const nomorWA = "628123456789"; // <--- GANTI NOMOR LU DI SINI
+        const pesan = "Halo Irfan %26 Via!%0A%0A" + 
+                      "Ada ucapan baru dari undangan digital:%0A%0A" +
+                      "*Nama:* " + nama + "%0A" +
+                      "*Kehadiran:* " + statusHadir + "%0A" +
+                      "*Ucapan:* " + ucapan + "%0A%0A" +
+                      "Terima kasih!";
+
+        window.open("https://api.whatsapp.com/send?phone=" + nomorWA + "&text=" + pesan, "_blank");
+    }
+    </script>
 </body>
-
 </html>
+
