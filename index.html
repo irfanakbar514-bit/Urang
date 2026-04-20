@@ -752,39 +752,46 @@
     </div>
 </body>
 <script>
-    window.addEventListener('load', () => {
-        // 1. Ambil nama dari link (?to=Nama)
+    // FUNGSI PAKSA BUKA (Tanpa nunggu script lain)
+    function jebolLoading() {
+        console.log("Memulai proses jebol loading...");
+        
+        const loading = document.getElementById('loading');
+        const welcome = document.getElementById('welcome');
+        const root = document.getElementById('root');
+
+        // 1. Ambil nama tamu dari link (?to=Nama)
         const params = new URLSearchParams(window.location.search);
         const tamu = params.get('to');
-        
-        // 2. Masukkan ke tempat nama bawaan template
         if (tamu) {
-            const guestElement = document.getElementById('guest-name');
-            if (guestElement) {
-                // Kita isi manual karena script aslinya lagi mogok
-                guestElement.innerText = tamu.replace(/\+/g, ' ');
-            }
+            const elNama = document.getElementById('guest-name');
+            if (elNama) elNama.innerText = tamu.replace(/\+/g, ' ');
         }
 
-        // 3. Logika Buka Menu (Loading -> Welcome)
+        // 2. Paksa Loading Ilang (Tunggu 2 detik biar gak glitch)
         setTimeout(() => {
-            const loadingScreen = document.getElementById('loading');
-            const welcomeScreen = document.getElementById('welcome');
-            
-            if (loadingScreen) {
-                loadingScreen.style.opacity = '0';
-                setTimeout(() => {
-                    loadingScreen.style.display = 'none';
-                }, 500);
+            if (loading) {
+                loading.style.setProperty('display', 'none', 'important');
+                loading.style.setProperty('opacity', '0', 'important');
             }
             
-            if (welcomeScreen) {
-                welcomeScreen.style.display = 'block';
-                welcomeScreen.style.opacity = '1';
-                welcomeScreen.style.visibility = 'visible';
+            // 3. Paksa Welcome Page Muncul
+            if (welcome) {
+                welcome.style.setProperty('display', 'block', 'important');
+                welcome.style.setProperty('opacity', '1', 'important');
+                welcome.style.setProperty('visibility', 'visible', 'important');
             }
-        }, 2000); 
-    });
+
+            if (root) {
+                root.classList.remove('opacity-0');
+                root.style.setProperty('opacity', '1', 'important');
+            }
+            console.log("Loading berhasil dijebol!");
+        }, 2000);
+    }
+
+    // Jalankan fungsi begitu halaman mulai load
+    jebolLoading();
 </script>
 
 
