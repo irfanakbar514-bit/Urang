@@ -75,6 +75,8 @@
 <link href="https://cdn.jsdelivr.net/gh/mshatp/sakura-falling-js/sakura.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/gh/mshatp/sakura-falling-js/sakura.min.js"></script>
 
+<link href="https://unpkg.com/sakura-js/dist/sakura.min.css" rel="stylesheet">
+<script src="https://unpkg.com/sakura-js/dist/sakura.min.js"></script>
 
 
 </head>
@@ -820,25 +822,16 @@
             confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, zIndex: 9999 });
         }
 
-        // EFEK BUNGA JATUH
-            // EFEK BUNGA JATUH (Versi Maksa)
+            // EFEK BUNGA JATUH
     if (typeof Sakura !== 'undefined') {
-        setTimeout(() => {
-            new Sakura('body', {
-                colors: [
-                    {
-                        gradientColorStart: 'rgba(255, 183, 197, 0.9)',
-                        gradientColorEnd: 'rgba(255, 197, 208, 0.9)',
-                        gradientColorDegree: 120,
-                    }
-                ],
-                delay: 100,
-            });
-            console.log("Bunga Sakura Berhasil Dijalankan!");
-        }, 500);
-    } else {
-        console.log("Script Sakura belum terload di head!");
+        new Sakura('body', {
+            fallSpeed: 1,
+            delay: 200,
+            zIndex: 9999 // PAKSA MUNCUL DI PALING DEPAN
+        });
+        console.log("Bunga jalan!");
     }
+
 
 
         // Nyalain animasi scroll (AOS)
