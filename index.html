@@ -821,7 +821,24 @@
         }
 
         // EFEK BUNGA JATUH
-        if (typeof Sakura !== 'undefined') { new Sakura('body'); }
+            // EFEK BUNGA JATUH (Versi Maksa)
+    if (typeof Sakura !== 'undefined') {
+        setTimeout(() => {
+            new Sakura('body', {
+                colors: [
+                    {
+                        gradientColorStart: 'rgba(255, 183, 197, 0.9)',
+                        gradientColorEnd: 'rgba(255, 197, 208, 0.9)',
+                        gradientColorDegree: 120,
+                    }
+                ],
+                delay: 100,
+            });
+            console.log("Bunga Sakura Berhasil Dijalankan!");
+        }, 500);
+    } else {
+        console.log("Script Sakura belum terload di head!");
+    }
 
 
         // Nyalain animasi scroll (AOS)
