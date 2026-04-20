@@ -829,29 +829,29 @@
         if (typeof confetti !== 'undefined') {
             confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, zIndex: 9999 });
         }
+        // MESIN BUNGA JATUH
+        setInterval(function() {
+            var bunga = document.createElement('div');
+            bunga.className = 'sakura-custom';
+            var size = Math.random() * 7 + 8 + 'px';
+            bunga.style.width = size;
+            bunga.style.height = size;
+            bunga.style.left = Math.random() * 100 + 'vw';
+            bunga.style.animationDuration = Math.random() * 3 + 2 + 's';
+            bunga.style.position = 'fixed';
+            bunga.style.top = '-10px';
+            bunga.style.zIndex = '9999999';
+            bunga.style.pointerEvents = 'none';
+            
+            document.body.appendChild(bunga);
 
-                    // MESIN BUNGA OTOMATIS
-    setInterval(function() {
-        var bunga = document.createElement('div');
-        bunga.className = 'sakura-custom';
-        // Acak ukuran dan posisi
-        var size = Math.random() * 7 + 8 + 'px';
-        bunga.style.width = size;
-        bunga.style.height = size;
-        bunga.style.left = Math.random() * 100 + 'vw';
-        bunga.style.animationDuration = Math.random() * 3 + 2 + 's';
-        
-        document.body.appendChild(bunga);
+            setTimeout(function() {
+                bunga.remove();
+            }, 4000);
+        }, 300);
 
-        // Hapus biar gak berat
-        setTimeout(function() {
-            bunga.remove();
-        }, 4000);
-    }, 300); // Setiap 0.3 detik muncul bunga baru
-
-
-
-        // Nyalain animasi scroll (AOS)
+         
+ // Nyalain animasi scroll (AOS)
         if (typeof AOS !== 'undefined') {
             AOS.init({ duration: 1000, once: true });
         }
