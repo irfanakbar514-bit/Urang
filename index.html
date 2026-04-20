@@ -66,19 +66,7 @@
     <script src="./js/guest.js" type="module"></script>
       <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 <style>
-    .sakura-custom {
-        background: #ffb7c5 !important;
-        position: fixed;
-        top: -10px;
-        border-radius: 100% 0 100% 0;
-        z-index: 9999999 !important;
-        pointer-events: none;
-        animation: jatuh-sakura linear infinite;
-    }
-    @keyframes jatuh-sakura {
-        0% { transform: translateY(0) rotate(0deg); }
-        100% { transform: translateY(100vh) rotate(360deg); }
-    }
+    
     /* Biar lapisan tombol story posisinya bener di tengah kotak */
     .bg-overlay-auto.z-3 {
         backdrop-filter: blur(8px); /* Ini yang bikin efek blur di awal */
@@ -763,17 +751,7 @@
             confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, zIndex: 9999 });
         }
 
-        setInterval(function() {
-            var bunga = document.createElement('div');
-            bunga.className = 'sakura-custom';
-            var size = (Math.random() * 7 + 8) + 'px';
-            bunga.style.width = size;
-            bunga.style.height = size;
-            bunga.style.left = Math.random() * 100 + 'vw';
-            bunga.style.animationDuration = (Math.random() * 3 + 2) + 's';
-            document.body.appendChild(bunga);
-            setTimeout(function() { bunga.remove(); }, 4000);
-        }, 300);
+        
 
         const welcome = document.getElementById('welcome');
         if (welcome) welcome.style.display = 'none';
