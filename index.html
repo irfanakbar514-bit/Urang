@@ -728,5 +728,25 @@
         </div>
     </div>
 </body>
+    <script>
+    // Paksa hilangkan loading screen setelah 2 detik meskipun server gak respon
+    setTimeout(() => {
+        const loadingScreen = document.getElementById('loading');
+        const rootContent = document.getElementById('root');
+        
+        if (loadingScreen) {
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 500);
+        }
+        
+        if (rootContent) {
+            rootContent.classList.remove('opacity-0');
+            rootContent.style.opacity = '1';
+        }
+    }, 2000); // Angka 2000 artinya 2 detik
+</script>
+
 
 </html>
