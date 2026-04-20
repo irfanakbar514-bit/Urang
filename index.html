@@ -80,20 +80,15 @@
         100% { transform: translateY(100vh) rotate(360deg); }
     }
     <style>
-    /* Paksa kotak cerita biar gak blur dan teksnya kelihatan */
-    .overflow-y-scroll.with-scrollbar {
-        height: auto !important;
-        max-height: none !important;
-        overflow: visible !important;
-        filter: none !important;
-        -webkit-filter: none !important;
-    }
-
-    /* Hilangkan lapisan blur yang bikin tombol ngambang */
+    /* Biar lapisan tombol story posisinya bener di tengah kotak */
     .bg-overlay-auto.z-3 {
-        display: none !important;
+        backdrop-filter: blur(8px); /* Ini yang bikin efek blur di awal */
+        -webkit-backdrop-filter: blur(8px);
+        border-radius: 1rem;
+        transition: all 0.5s ease;
     }
 </style>
+
 
 </head>
 
