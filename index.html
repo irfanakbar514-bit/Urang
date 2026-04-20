@@ -810,39 +810,40 @@
     });
 </script>
     
-    <script>
-    // 1. Fungsi rahasia buat manggil bunga jatuh
-    function efekBungaJatuh() {
-        const script = document.createElement('script');
-        script.src = "https://cdn.jsdelivr.net/gh/mshatp/sakura-falling-js/sakura.min.js";
-        script.onload = () => { if(window.Sakura) new Sakura('body'); };
-        document.head.appendChild(script);
-    }
-
-    // 2. Fungsi utama pas tombol diklik
+   <script>
+    // 1. FUNGSI UTAMA (Dijalankan saat tombol buka diklik)
     function jalankanSemua() {
-        // Nyalain musik
+        // Putar Musik
         const audio = document.getElementById('musik-undangan');
-        if (audio) audio.play();
-
-        // EFEK MELEDAK (Confetti)
-        if (typeof confetti !== 'undefined') {
-            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, zIndex: 9999 });
+        if (audio) {
+            audio.play().catch(err => console.log("Musik tertunda"));
         }
-        // MESIN BUNGA JATUH
+
+        // Efek Confetti (Kertas Meledak)
+        if (typeof confetti !== 'undefined') {
+            confetti({ 
+                particleCount: 150, 
+                spread: 70, 
+                origin: { y: 0.6 }, 
+                zIndex: 9999 
+            });
+        }
+
+        // Mesin Bunga Sakura (Interval)
         setInterval(function() {
             var bunga = document.createElement('div');
             bunga.className = 'sakura-custom';
-            var size = Math.random() * 7 + 8 + 'px';
+            var size = (Math.random() * 7 + 8) + 'px';
             bunga.style.width = size;
             bunga.style.height = size;
             bunga.style.left = Math.random() * 100 + 'vw';
-            bunga.style.animationDuration = Math.random() * 3 + 2 + 's';
+            bunga.style.animationDuration = (Math.random() * 3 + 2) + 's';
             bunga.style.position = 'fixed';
             bunga.style.top = '-10px';
             bunga.style.zIndex = '9999999';
             bunga.style.pointerEvents = 'none';
-            
+            bunga.style.background = '#ffb7c5';
+            bunga.style.borderRadius = '100% 0 100% 0';
             document.body.appendChild(bunga);
 
             setTimeout(function() {
@@ -850,14 +851,15 @@
             }, 4000);
         }, 300);
 
-         
- // Nyalain animasi scroll (AOS)
+        // Inisialisasi AOS (Animasi Scroll)
         if (typeof AOS !== 'undefined') {
             AOS.init({ duration: 1000, once: true });
         }
 
-        // Buka undangan
-        document.getElementById('welcome').style.display = 'none';
+        // Transisi Buka Undangan
+        const welcome = document.getElementById('welcome');
+        if (welcome) welcome.style.display = 'none';
+
         const root = document.getElementById('root');
         if (root) {
             root.classList.remove('opacity-0');
@@ -867,7 +869,7 @@
         setTimeout(() => { if(window.AOS) AOS.refresh(); }, 500);
     }
 
-    // 3. Script buat ngatur loading awal (Tetap Sama)
+    // 2. LOADING AWAL
     window.addEventListener('load', () => {
         setTimeout(() => {
             const loading = document.getElementById('loading');
@@ -880,35 +882,31 @@
         }, 1000);
     });
 
-    // 4. Deteksi klik tombol buka
+    // 3. DETEKSI KLIK TOMBOL
     document.addEventListener('click', function(e) {
-        const tombol = e.target.closest('button');
-        if (tombol && (tombol.innerText.includes('Open') || tombol.innerText.includes('Buka'))) {
+        const btn = e.target.closest('button');
+        if (btn && (btn.innerText.includes('Open') || btn.innerText.includes('Buka'))) {
             jalankanSemua();
         }
     });
-        
-        function bukaCerita(btnParent) {
-    // 1. Paksa hilangkan lapisan blur/overlay dan tombolnya
-    btnParent.style.display = 'none';
-    btnParent.style.visibility = 'hidden';
-    btnParent.style.opacity = '0';
 
-    // 2. Cari kotak cerita (storyBox)
-    const storyBox = btnParent.nextElementSibling;
-    if (storyBox) {
-        // 3. Paksa munculin teks ceritanya
-        storyBox.style.height = 'auto';
-        storyBox.style.maxHeight = 'none';
-        storyBox.style.overflow = 'visible';
-        storyBox.style.opacity = '1';
-        storyBox.classList.remove('overflow-y-scroll');
+    // 4. FUNGSI KISAH CINTA
+    function bukaCerita(btnParent) {
+        btnParent.style.display = 'none';
+        btnParent.style.visibility = 'hidden';
+        btnParent.style.opacity = '0';
+
+        const storyBox = btnParent.nextElementSibling;
+        if (storyBox) {
+            storyBox.style.height = 'auto';
+            storyBox.style.maxHeight = 'none';
+            storyBox.style.overflow = 'visible';
+            storyBox.style.opacity = '1';
+            storyBox.classList.remove('overflow-y-scroll');
+        }
     }
-}
-
-
-
 </script>
+ 
 
 
   
