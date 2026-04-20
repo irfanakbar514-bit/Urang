@@ -65,44 +65,38 @@
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha256-5P1JGBOIxI7FBAvT/mb1fCnI5n/NhQKzNUuW7Hq0fMc=" crossorigin="anonymous"></script>
     <script src="./js/guest.js" type="module"></script>
     <style>
-    /* PAKSA LOADING TAMPIL DI TENGAH */
+    /* 1. Kunci Loading Screen */
     #loading {
         display: flex !important;
-        flex-direction: column !important; /* Susun logo & bar ke bawah */
-        justify-content: center !important; /* Tengah atas-bawah */
-        align-items: center !important;    /* Tengah kiri-kanan */
-        position: fixed !important;        /* Kunci layar penuh */
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: #121212 !important; /* Warna putih bawaan */
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        position: fixed !important;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background-color: #000000 !important; /* Latar item biar gak glitch putih */
+        z-index: 99999 !important;
         opacity: 1 !important;
         visibility: visible !important;
-        z-index: 99999 !important;
     }
 
-    /* Bikin logo & teks loading tetep kelihatan */
-    #loading img, #loading .width-loading {
-        opacity: 1 !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        text-align: center !important;
+    /* 2. Beresin Nama Double */
+    /* Kita sembunyiin semua teks bawaan template di area nama */
+    #guest-name h2, #guest-name p {
+        display: none !important;
     }
 
-    /* Pastikan Progress Bar muncul di tengah */
-    #progress-bar {
-        width: 100% !important; /* Paksa penuh biar kelihatan prosesnya */
+    /* Kita cuma bolehin munculin nama yang kita buat sendiri */
+    .nama-tamu-fix {
+        display: block !important;
     }
 
-    /* Halaman Welcome Standby di Belakang */
+    /* 3. Persiapan Menu Utama */
     #welcome {
         display: block !important;
         opacity: 1 !important;
-        visibility: visible !important;
     }
 </style>
+
 
 
 
