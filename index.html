@@ -22,7 +22,6 @@
             border-radius: 1rem;
             transition: all 0.5s ease;
         }
-        #comment { display: block !important; opacity: 1 !important; visibility: visible !important; }
     </style>
 </head>
 
@@ -33,14 +32,14 @@
             <div class="position-relative bg-white-black d-flex justify-content-center align-items-center vh-100">
                 <div class="text-center p-4 bg-overlay-auto rounded-5">
                     <h2 class="font-esthetic mb-4" style="font-size: 2rem;">Irfan &amp; Via</h2>
-                    <p class="m-0">Payakumbuh, Sumatera Barat</p>
+                    <p class="m-0">Rabu, 15 Maret 2023</p>
                 </div>
             </div>
         </div>
 
         <div class="col-sm-7 col-md-6 col-lg-5 col-xl-4 col-xxl-3 m-0 p-0">
             <main data-bs-spy="scroll" data-bs-target="#navbar-menu">
-                
+
                 <section id="home" class="bg-light-dark position-relative overflow-hidden p-0 m-0">
                     <img src="./assets/images/bg.webp" class="position-absolute opacity-25 top-50 start-50 translate-middle bg-cover-home">
                     <div class="position-relative text-center bg-overlay-auto" style="background-color: unset;">
@@ -54,10 +53,10 @@
                 <section class="bg-white-black text-center" id="bride">
                     <h2 class="font-esthetic py-4 m-0" style="font-size: 2rem;">Mempelai</h2>
                     <div class="pb-4">
-                        <img src="./assets/images/cowo.webp" class="img-center-crop rounded-circle border border-3 shadow my-4 mx-auto">
+                        <img src="./assets/images/cowo.webp" class="img-center-crop rounded-circle border border-3 border-light shadow my-4 mx-auto">
                         <h2 class="font-esthetic m-0">Irfan</h2>
                         <h2 class="font-esthetic mt-4">&amp;</h2>
-                        <img src="./assets/images/cewe.webp" class="img-center-crop rounded-circle border border-3 shadow my-4 mx-auto">
+                        <img src="./assets/images/cewe.webp" class="img-center-crop rounded-circle border border-3 border-light shadow my-4 mx-auto">
                         <h2 class="font-esthetic m-0">Via</h2>
                     </div>
                 </section>
@@ -67,13 +66,11 @@
                         <div class="bg-theme-auto rounded-5 shadow p-3">
                             <h2 class="font-esthetic text-center py-2 mb-2" style="font-size: 2.125rem;">Kisah Cinta</h2>
                             <div class="position-relative">
-                                <div class="position-absolute d-flex justify-content-center align-items-center top-50 start-50 translate-middle w-100 h-100 bg-overlay-auto z-3" style="border-radius:1rem;">
+                                <div class="position-absolute d-flex justify-content-center align-items-center top-50 start-50 translate-middle w-100 h-100 bg-overlay-auto z-3" style="border-radius: 1rem;">
                                     <button class="btn btn-outline-auto btn-sm rounded-4 shadow-sm" onclick="bukaCerita(this.parentNode)"><i class="fa-solid fa-heart fa-bounce me-2"></i>Lihat Story</button>
                                 </div>
-                                <div class="p-2" style="filter: blur(8px); height: 15rem; overflow: hidden;">
-                                    <p class="small">Januari 2025 - Pertemuan pertama kami...</p>
-                                    <p class="small">Februari 2025 - Benih cinta mulai tumbuh...</p>
-                                    <p class="small">Maret 2025 - Langkah menuju Ridha Allah...</p>
+                                <div class="p-2 with-scrollbar" style="height: 10rem; overflow-y: auto;">
+                                    <p class="small">Kisah perjalanan cinta Irfan & Via yang dimulai dari pertemuan tak terduga hingga memutuskan untuk melangkah ke pelaminan.</p>
                                 </div>
                             </div>
                         </div>
@@ -96,7 +93,7 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Ucapan</label>
+                                <label class="form-label">Ucapan &amp; Doa</label>
                                 <textarea class="form-control rounded-4" id="form-comment" rows="4" placeholder="Tulis Ucapan"></textarea>
                             </div>
                             <div class="d-grid">
@@ -109,14 +106,13 @@
                 </section>
 
                 <section class="bg-white-black py-4 text-center">
-                    <hr class="my-3">
                     <small>Made with <i class="fa-solid fa-heart text-danger"></i> by Irfan Project</small>
                 </section>
             </main>
         </div>
     </div>
 
-    <div class="loading-page bg-white-black" id="welcome" style="display:none; opacity: 0;">
+    <div class="loading-page bg-white-black" id="welcome" style="opacity: 0; display: none;">
         <div class="d-flex justify-content-center align-items-center vh-100 text-center">
             <div class="d-flex flex-column">
                 <h2 class="font-esthetic mb-4">The Wedding Of Irfan & Via</h2>
@@ -131,6 +127,16 @@
                 <div class="progress mb-3" style="height: 0.5rem;"><div class="progress-bar" id="progress-bar" style="width: 0%"></div></div>
                 <small class="text-secondary">Digital Invitation</small>
                 <small class="fw-bold text-theme-auto">by Irfan Project</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-image" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border-0">
+                <div class="modal-body p-0 text-center">
+                    <img src="" class="img-fluid rounded-4" id="show-modal-image">
+                </div>
             </div>
         </div>
     </div>
@@ -165,18 +171,14 @@
             btnParent.style.opacity = '0';
             setTimeout(() => btnParent.style.display = 'none', 500);
             const storyBox = btnParent.nextElementSibling;
-            if (storyBox) {
-                storyBox.style.filter = 'none';
-                storyBox.style.height = 'auto';
-                storyBox.style.overflow = 'visible';
-            }
+            if (storyBox) { storyBox.style.filter = 'none'; storyBox.style.height = 'auto'; storyBox.style.overflow = 'visible'; }
         }
 
         function kirimKeWA() {
             const nama = document.getElementById('form-name').value;
             const hadir = document.getElementById('form-presence').value;
             const ucapan = document.getElementById('form-comment').value;
-            if (!nama || !ucapan) { alert("Isi nama dan ucapan bro!"); return; }
+            if (!nama || !ucapan) { alert("Isi nama dan ucapan dulu bro!"); return; }
             const nomorWA = "628123456789"; // GANTI NOMOR LU DI SINI
             const pesan = `Halo Irfan %26 Via!%0A%0A*Nama:* ${nama}%0A*Hadir:* ${hadir}%0A*Ucapan:* ${ucapan}`;
             window.open(`https://api.whatsapp.com/send?phone=${nomorWA}&text=${pesan}`, '_blank');
