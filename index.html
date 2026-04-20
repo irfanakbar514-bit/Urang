@@ -810,16 +810,35 @@
         }
     });
 
-    // 4. FUNGSI KISAH CINTA
-    function bukaCerita(btnParent) {
-        btnParent.style.display = 'none';
+        function bukaCerita(btnParent) {
+        // 1. Efek Meledak
+        if (typeof confetti !== 'undefined') {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.7 },
+                zIndex: 9999
+            });
+        }
+
+        // 2. Hilangkan tombol dan lapisan blurnya
+        btnParent.style.opacity = '0';
+        setTimeout(() => {
+            btnParent.style.display = 'none';
+        }, 500);
+
+        // 3. Cari kotak teksnya dan bersihkan blurnya
         const storyBox = btnParent.nextElementSibling;
         if (storyBox) {
+            storyBox.style.filter = 'none';
+            storyBox.style.webkitFilter = 'none';
             storyBox.style.height = 'auto';
-            storyBox.style.opacity = '1';
+            storyBox.style.maxHeight = 'none';
             storyBox.style.overflow = 'visible';
+            storyBox.classList.remove('overflow-y-scroll');
         }
     }
+
 </script>
 
   
