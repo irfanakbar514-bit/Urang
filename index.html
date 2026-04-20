@@ -771,17 +771,6 @@
             rootContent.style.opacity = '1';
         }
     }, 2000); // Angka 2000 artinya 2 detik
-        const params = new URLSearchParams(window.location.search);
-    const tamu = params.get('to');
-    if (tamu) {
-        const elemenNama = document.getElementById('guest-name');
-        if (elemenNama) {
-            elemenNama.innerHTML = `
-                <p class="mb-0">Kepada Yth. Bapak/Ibu/Saudara/i:</p>
-                <h2 class="font-esthetic" style="font-size: 2.2rem; color: #d4af37;">${tamu.replace(/\+/g, ' ')}</h2>
-            `;
-        }
-    }
 </script>
 
 
