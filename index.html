@@ -744,17 +744,15 @@
         </div>
     </div>
   <script>
+    // 1. FUNGSI UTAMA (Jalan pas klik Buka)
     function jalankanSemua() {
-        // 1. Musik
         const audio = document.getElementById('musik-undangan');
         if (audio) audio.play();
 
-        // 2. Kertas Meledak
         if (typeof confetti !== 'undefined') {
             confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, zIndex: 9999 });
         }
 
-        // 3. Mesin Bunga Sakura
         setInterval(function() {
             var bunga = document.createElement('div');
             bunga.className = 'sakura-custom';
@@ -767,7 +765,6 @@
             setTimeout(function() { bunga.remove(); }, 4000);
         }, 300);
 
-        // 4. Buka Undangan
         const welcome = document.getElementById('welcome');
         if (welcome) welcome.style.display = 'none';
         const root = document.getElementById('root');
@@ -777,7 +774,22 @@
         }
     }
 
-    // Deteksi tombol Open/Buka
+    // 2. FUNGSI LOADING AWAL (Biar gak mentok anjing)
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            const loading = document.getElementById('loading');
+            if (loading) {
+                loading.style.opacity = '0';
+                setTimeout(() => { 
+                    loading.remove(); 
+                    const welcome = document.getElementById('welcome');
+                    if (welcome) welcome.style.opacity = '1';
+                }, 500);
+            }
+        }, 1000);
+    });
+
+    // 3. DETEKSI KLIK TOMBOL
     document.addEventListener('click', function(e) {
         const btn = e.target.closest('button');
         if (btn && (btn.innerText.includes('Open') || btn.innerText.includes('Buka'))) {
@@ -785,7 +797,7 @@
         }
     });
 
-    // Fungsi Story (Kisah Cinta)
+    // 4. FUNGSI KISAH CINTA
     function bukaCerita(btnParent) {
         btnParent.style.display = 'none';
         const storyBox = btnParent.nextElementSibling;
@@ -796,6 +808,7 @@
         }
     }
 </script>
+
 
 </body>
 
