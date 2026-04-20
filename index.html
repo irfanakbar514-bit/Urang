@@ -744,72 +744,7 @@
         </div>
     </div>
   <script>
-    // 1. FUNGSI UTAMA (Jalan pas klik Buka)
-    function jalankanSemua() {
-        const audio = document.getElementById('musik-undangan');
-        if (audio) audio.play();
-
-        if (typeof confetti !== 'undefined') {
-            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, zIndex: 9999 });
-        }
-
-        setInterval(function() {
-            var bunga = document.createElement('div');
-            bunga.className = 'sakura-custom';
-            var size = (Math.random() * 7 + 8) + 'px';
-            bunga.style.width = size;
-            bunga.style.height = size;
-            bunga.style.left = Math.random() * 100 + 'vw';
-            bunga.style.animationDuration = (Math.random() * 3 + 2) + 's';
-            document.body.appendChild(bunga);
-            setTimeout(function() { bunga.remove(); }, 4000);
-        }, 300);
-
-        const welcome = document.getElementById('welcome');
-        if (welcome) welcome.style.display = 'none';
-        const root = document.getElementById('root');
-        if (root) {
-            root.classList.remove('opacity-0');
-            root.style.opacity = '1';
-        }
-    }
-
-    // 2. FUNGSI LOADING AWAL (Biar gak mentok anjing)
-    window.addEventListener('load', () => {
-        setTimeout(() => {
-            const loading = document.getElementById('loading');
-            if (loading) {
-                loading.style.opacity = '0';
-                setTimeout(() => { 
-                    loading.remove(); 
-                    const welcome = document.getElementById('welcome');
-                    if (welcome) welcome.style.opacity = '1';
-                }, 500);
-            }
-        }, 1000);
-    });
-
-    // 3. DETEKSI KLIK TOMBOL
-    document.addEventListener('click', function(e) {
-        const btn = e.target.closest('button');
-        if (btn && (btn.innerText.includes('Open') || btn.innerText.includes('Buka'))) {
-            jalankanSemua();
-        }
-    });
-
-    // 4. FUNGSI KISAH CINTA
-    function bukaCerita(btnParent) {
-        btnParent.style.display = 'none';
-        const storyBox = btnParent.nextElementSibling;
-        if (storyBox) {
-            storyBox.style.height = 'auto';
-            storyBox.style.opacity = '1';
-            storyBox.style.overflow = 'visible';
-        }
-    }
-</script>
-
-
+    
 </body>
 
 </html>
