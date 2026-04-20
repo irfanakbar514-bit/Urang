@@ -65,29 +65,27 @@
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha256-5P1JGBOIxI7FBAvT/mb1fCnI5n/NhQKzNUuW7Hq0fMc=" crossorigin="anonymous"></script>
     <script src="./js/guest.js" type="module"></script>
     <style>
-    /* Paksa tombol Open Invitation dan Welcome Page muncul ke paling depan */
-    #welcome {
+    /* Paksa Loading Bawaan Muncul */
+    #loading {
+        display: flex !important;
         opacity: 1 !important;
         visibility: visible !important;
-        z-index: 9999 !important;
-        display: block !important;
+        background-color: #ffffff !important; /* Pakai putih sesuai tema loading aslinya */
+        z-index: 99999 !important;
     }
 
-    /* Pastikan tombolnya kelihatan (warna & bayangan) */
-    #welcome button {
+    /* Bikin logo loading-nya kelihatan */
+    #loading img {
         opacity: 1 !important;
-        display: inline-block !important;
-        position: relative !important;
-        z-index: 10000 !important;
-        background-color: #ffffff !important; /* Warna putih biar kontras */
-        color: #000000 !important;
     }
 
-    /* Hilangkan layar loading hitam yang nutupin pandangan */
-    #loading {
-        display: none !important;
+    /* Pastikan halaman welcome standby di belakang */
+    #welcome {
+        display: block !important;
+        opacity: 1 !important;
     }
 </style>
+
 
 
 </head>
