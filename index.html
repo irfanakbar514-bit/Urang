@@ -836,6 +836,36 @@ function kirimPesanWA() {
     window.open(url, '_blank');
 }
 </script>
+        <script>
+function kirimKeWA() {
+    // Ambil data dari form
+    const nama = document.getElementById('form-name').value;
+    const hadir = document.getElementById('form-presence');
+    const ucapan = document.getElementById('form-comment').value;
+    const statusHadir = hadir.options[hadir.selectedIndex].text;
+
+    // Cek kalau kosong
+    if (nama.trim() === "" || ucapan.trim() === "") {
+        alert("Nama dan Ucapan harus diisi ya bro!");
+        return;
+    }
+
+    // --- GANTI NOMOR DI BAWAH INI (Pake 62, jangan 08) ---
+    const nomorWA = "628123456789"; 
+
+    // Susun pesan
+    const pesan = "Halo Irfan %26 Via!%0A%0A" + 
+                  "Ada ucapan baru dari undangan digital:%0A%0A" +
+                  "*Nama:* " + nama + "%0A" +
+                  "*Kehadiran:* " + statusHadir + "%0A" +
+                  "*Ucapan:* " + ucapan + "%0A%0A" +
+                  "Terima kasih!";
+
+    // Buka WhatsApp
+    window.open("https://api.whatsapp.com/send?phone=" + nomorWA + "&text=" + pesan, "_blank");
+}
+</script>
+
 
   
     
