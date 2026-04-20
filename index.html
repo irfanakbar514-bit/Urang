@@ -830,23 +830,24 @@
             confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, zIndex: 9999 });
         }
 
-                // EFEK BUNGA JATUH (VERSI BARBAR - TANPA LIBRARY)
-    function hujanBunga() {
-        for (let i = 0; i < 30; i++) {
-            let bunga = document.createElement('div');
-            bunga.className = 'sakura';
-            bunga.style.left = Math.random() * 100 + 'vw';
-            bunga.style.animationDuration = (Math.random() * 3 + 2) + 's';
-            bunga.style.opacity = Math.random();
-            document.body.appendChild(bunga);
-            
-            // Hapus bunga setelah jatuh biar gak menuhi memori
-            setTimeout(() => { bunga.remove(); }, 5000);
-        }
-    }
-    
-    // Panggil fungsinya
-    setInterval(hujanBunga, 1000);
+                    // MESIN BUNGA OTOMATIS
+    setInterval(function() {
+        var bunga = document.createElement('div');
+        bunga.className = 'sakura-custom';
+        // Acak ukuran dan posisi
+        var size = Math.random() * 7 + 8 + 'px';
+        bunga.style.width = size;
+        bunga.style.height = size;
+        bunga.style.left = Math.random() * 100 + 'vw';
+        bunga.style.animationDuration = Math.random() * 3 + 2 + 's';
+        
+        document.body.appendChild(bunga);
+
+        // Hapus biar gak berat
+        setTimeout(function() {
+            bunga.remove();
+        }, 4000);
+    }, 300); // Setiap 0.3 detik muncul bunga baru
 
 
 
