@@ -583,10 +583,10 @@
                             <div class="d-none mb-3" id="gif-form-default"></div>
 
                             <div class="d-grid">
-                                <button class="btn btn-primary btn-sm rounded-4 shadow m-1" onclick="undangan.comment.send(this)" data-offline-disabled="false">
-                                    <i class="fa-solid fa-paper-plane me-2"></i>Send
-                                </button>
-                            </div>
+    <button class="btn btn-primary btn-sm rounded-4 shadow m-1" onclick="kirimPesanWA()">
+        <i class="fa-solid fa-paper-plane me-2"></i>Kirim Ucapan
+    </button>
+
                         </div>
 
                         <!-- Comments -->
@@ -818,6 +818,34 @@
         }
     }
 
+</script>
+        
+<script>
+function kirimPesanWA() {
+    // Mengambil data dari form
+    const nama = document.getElementById('form-name').value;
+    const hadir = document.getElementById('form-presence');
+    const ucapan = document.getElementById('form-comment').value;
+    const statusHadir = hadir.options[hadir.selectedIndex].text;
+
+    // Validasi sederhana
+    if (nama === "" || ucapan === "") {
+        alert("Mohon isi nama dan ucapan Anda.");
+        return;
+    }
+
+    // Nomor tujuan (Ganti dengan nomor kamu, awali dengan 62)
+    const nomorTujuan = "628XXXXXXXXXX"; 
+
+    // Menyusun format pesan
+    const pesan = `Halo, saya *${nama}*%0A` +
+                  `Konfirmasi Kehadiran: *${statusHadir}*%0A` +
+                  `Ucapan: _${ucapan}_`;
+
+    // Membuka WhatsApp
+    const url = `https://api.whatsapp.com/send?phone=${nomorTujuan}&text=${pesan}`;
+    window.open(url, '_blank');
+}
 </script>
 
   
