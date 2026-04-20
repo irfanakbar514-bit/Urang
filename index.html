@@ -926,6 +926,82 @@ function kirimPesanWA() {
         setTimeout(() => {
             btnParent.style.display = 'none';
         }, 500);
+    <div class="modal fade" id="modal-image" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border border-0">
+                <div class="modal-body p-0">
+                    <div class="d-flex position-absolute top-0 end-0">
+                        <a class="btn d-flex justify-content-center align-items-center bg-overlay-auto p-2 m-1 rounded-circle border shadow-sm z-1" role="button" target="_blank" href="./assets/images/placeholder.webp" id="button-modal-click">
+                            <i class="fa-solid fa-arrow-up-right-from-square" style="width: 1em !important;"></i>
+                        </a>
+                        <button class="btn d-flex justify-content-center align-items-center bg-overlay-auto p-2 m-1 rounded-circle border shadow-sm z-1" id="button-modal-download">
+                            <i class="fa-solid fa-download" style="width: 1em !important;"></i>
+                        </button>
+                        <button class="btn d-flex justify-content-center align-items-center bg-overlay-auto p-2 m-1 rounded-circle border shadow-sm z-1" data-bs-dismiss="modal">
+                            <i class="fa-solid fa-circle-xmark" style="width: 1em !important;"></i>
+                        </button>
+                    </div>
+                    <img src="./assets/images/placeholder.webp" class="img-fluid w-100 rounded-4 cursor-pointer" alt="image" id="show-modal-image">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // 1. FUNGSI UTAMA (Pas klik Buka)
+    function jalankanSemua() {
+        // Cari audio di body atau dimanapun
+        const audio = document.querySelector('audio');
+        if (audio) {
+            audio.play().catch(err => console.log("Musik butuh interaksi"));
+        }
+
+        if (typeof confetti !== 'undefined') {
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, zIndex: 9999 });
+        }
+
+        const welcome = document.getElementById('welcome');
+        if (welcome) welcome.style.display = 'none';
+        
+        const root = document.getElementById('root');
+        if (root) {
+            root.classList.remove('opacity-0');
+            root.style.opacity = '1';
+        }
+    }
+
+    // 2. LOADING SCREEN
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            const loading = document.getElementById('loading');
+            if (loading) {
+                loading.style.opacity = '0';
+                setTimeout(() => { 
+                    loading.remove(); 
+                    const welcome = document.getElementById('welcome');
+                    if (welcome) {
+                        welcome.style.opacity = '1';
+                        welcome.style.visibility = 'visible';
+                    }
+                }, 500);
+            }
+        }, 1000);
+    });
+
+    // 3. DETEKSI KLIK TOMBOL BUKA
+    document.addEventListener('click', function(e) {
+        const btn = e.target.closest('button');
+        if (btn && (btn.innerText.includes('Open') || btn.innerText.includes('Buka'))) {
+            jalankanSemua();
+        }
+    });
+
+    // 4. FUNGSI STORY
+    function bukaCerita(btnParent) {
+        btnParent.style.opacity = '0';
+        setTimeout(() => {
+            btnParent.style.display = 'none';
+        }, 500);
 
         const storyBox = btnParent.nextElementSibling;
         if (storyBox) {
@@ -936,7 +1012,7 @@ function kirimPesanWA() {
         }
     }
 
-    // 5. FUNGSI KIRIM WHATSAPP
+    // 5. FUNGSI WHATSAPP (Irfan Project)
     function kirimKeWA() {
         const nama = document.getElementById('form-name').value;
         const hadir = document.getElementById('form-presence');
@@ -944,17 +1020,15 @@ function kirimPesanWA() {
         const statusHadir = hadir.options[hadir.selectedIndex].text;
 
         if (nama.trim() === "" || ucapan.trim() === "") {
-            alert("Nama dan Ucapan harus diisi ya bro!");
+            alert("Nama dan Ucapan jangan kosong bro!");
             return;
         }
 
         const nomorWA = "628123456789"; // <--- GANTI NOMOR LU DI SINI
         const pesan = "Halo Irfan %26 Via!%0A%0A" + 
-                      "Ada ucapan baru dari undangan digital:%0A%0A" +
                       "*Nama:* " + nama + "%0A" +
                       "*Kehadiran:* " + statusHadir + "%0A" +
-                      "*Ucapan:* " + ucapan + "%0A%0A" +
-                      "Terima kasih!";
+                      "*Ucapan:* " + ucapan;
 
         window.open("https://api.whatsapp.com/send?phone=" + nomorWA + "&text=" + pesan, "_blank");
     }
