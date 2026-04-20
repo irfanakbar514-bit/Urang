@@ -79,6 +79,20 @@
         0% { transform: translateY(0) rotate(0deg); }
         100% { transform: translateY(100vh) rotate(360deg); }
     }
+    <style>
+    /* Paksa kotak cerita biar gak blur dan teksnya kelihatan */
+    .overflow-y-scroll.with-scrollbar {
+        height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+        filter: none !important;
+        -webkit-filter: none !important;
+    }
+
+    /* Hilangkan lapisan blur yang bikin tombol ngambang */
+    .bg-overlay-auto.z-3 {
+        display: none !important;
+    }
 </style>
 
 </head>
